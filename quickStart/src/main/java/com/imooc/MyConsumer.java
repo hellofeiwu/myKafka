@@ -36,6 +36,7 @@ public class MyConsumer {
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
         properties.put(ConsumerConfig.GROUP_ID_CONFIG,"my-group");
+        properties.put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG,MyConsumerInterceptor.class.getName());
 
         KafkaConsumer<String,String> consumer = new KafkaConsumer<String, String>(properties);
         consumer.subscribe(Collections.singletonList(TOPIC_NAME));
