@@ -12,7 +12,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.time.Duration;
 import java.util.*;
 
-public class myConsumer {
+public class MyConsumer {
     public static void main(String[] args) {
         String TOPIC_NAME = "default_topic";
         String TRUSTSTORE_PASSWORD = "123456";

@@ -7,7 +7,7 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class myProducer {
+public class MyProducer {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         String TOPIC_NAME = "default_topic";
         String TRUSTSTORE_PASSWORD = "123456";
@@ -30,6 +30,7 @@ public class myProducer {
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka-a944bd8-figo357159-63d6.f.aivencloud.com:20293");
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
+        properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, MyProducerInterceptor.class.getName());
 
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
 
