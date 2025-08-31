@@ -34,21 +34,21 @@ public class MyConsumer {
 
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka-a944bd8-figo357159-63d6.f.aivencloud.com:20293");
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,MyDeserializer.class.getName());
         properties.put(ConsumerConfig.GROUP_ID_CONFIG,"my-group");
         properties.put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG,MyConsumerInterceptor.class.getName());
 
-        KafkaConsumer<String,String> consumer = new KafkaConsumer<String, String>(properties);
+        KafkaConsumer<String,User> consumer = new KafkaConsumer<String, User>(properties);
         consumer.subscribe(Collections.singletonList(TOPIC_NAME));
 
         int loopCount = 0;
         while (loopCount<20){
             System.out.println("enter while loop: "+loopCount);
-            ConsumerRecords<String,String> records = consumer.poll(Duration.ofMillis(1000));
+            ConsumerRecords<String,User> records = consumer.poll(Duration.ofMillis(1000));
             for(TopicPartition p : records.partitions()){
-                List<ConsumerRecord<String, String>> recordList = records.records(p);
-                for(ConsumerRecord<String, String> r : recordList){
-                    System.out.println("topic: "+r.topic() + ", partition id: "+r.partition() +", message: "+r.value());
+                List<ConsumerRecord<String, User>> recordList = records.records(p);
+                for(ConsumerRecord<String, User> r : recordList){
+                    System.out.println("topic: "+r.topic() + ", partition id: "+r.partition() +", message: "+r.value().name);
                 }
             }
             loopCount++;
