@@ -40,16 +40,17 @@ public class myConsumer {
         KafkaConsumer<String,String> consumer = new KafkaConsumer<String, String>(properties);
         consumer.subscribe(Collections.singletonList(TOPIC_NAME));
 
-        int messageCount = 0;
-        while (messageCount<10){
+        int loopCount = 0;
+        while (loopCount<20){
+            System.out.println("enter while loop: "+loopCount);
             ConsumerRecords<String,String> records = consumer.poll(Duration.ofMillis(1000));
             for(TopicPartition p : records.partitions()){
                 List<ConsumerRecord<String, String>> recordList = records.records(p);
                 for(ConsumerRecord<String, String> r : recordList){
-                    messageCount++;
-                    System.out.println(r.value());
+                    System.out.println("topic: "+r.topic() + ", partition id: "+r.partition() +", message: "+r.value());
                 }
             }
+            loopCount++;
         }
         consumer.close();
     }

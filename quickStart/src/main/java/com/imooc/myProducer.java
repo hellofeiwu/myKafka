@@ -4,9 +4,11 @@ import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class myProducer {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         String TOPIC_NAME = "default_topic";
         String TRUSTSTORE_PASSWORD = "123456";
 
@@ -35,15 +37,17 @@ public class myProducer {
             ProducerRecord<String, String> record =
                     new ProducerRecord<>(TOPIC_NAME, "**** hello from idea "+i+" ****");
 
-            producer.send(record, new Callback() {
-                @Override
-                public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-                    if(e != null){
-                        e.printStackTrace();
-                    }
-                    System.out.println("===== sent ok! =====");
-                }
-            });
+//            producer.send(record, new Callback() {
+//                @Override
+//                public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+//                    if(e != null){
+//                        e.printStackTrace();
+//                    }
+//                    System.out.println("===== sent ok! =====");
+//                }
+//            });
+            Future f = producer.send(record);
+            System.out.println(f.get());
         }
         producer.flush();
         producer.close();
