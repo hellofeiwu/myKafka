@@ -28,7 +28,7 @@ public class MyDeserializer implements Deserializer {
             buffer.get(nameBytes);
 
             int id = new BigInteger(idBytes).intValue();
-            //int id = ByteBuffer.wrap(idBytes).getInt();
+            //int id = ByteBuffer.wrap(idBytes).getInt(); // 这行代码会报错，但是让我了解到，不同 int 数值 不一定都是占用 4 个字节位置
             String name = new String(nameBytes, StandardCharsets.UTF_8);
 
             User user = new User();
