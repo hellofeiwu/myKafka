@@ -44,7 +44,7 @@ public class MyConsumer {
         int loopCount = 0;
         while (loopCount<20){
             System.out.println("enter while loop: "+loopCount);
-            ConsumerRecords<String,User> records = consumer.poll(Duration.ofMillis(1000));
+            ConsumerRecords<String,User> records = consumer.poll(Duration.ofMillis(2000));
             for(TopicPartition p : records.partitions()){
                 List<ConsumerRecord<String, User>> recordList = records.records(p);
                 for(ConsumerRecord<String, User> r : recordList){
