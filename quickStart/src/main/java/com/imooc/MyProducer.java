@@ -29,14 +29,17 @@ public class MyProducer {
 
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka-a944bd8-figo357159-63d6.f.aivencloud.com:20293");
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,MySerializer.class.getName());
         properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, MyProducerInterceptor.class.getName());
 
-        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
+        KafkaProducer<String, User> producer = new KafkaProducer<String, User>(properties);
 
         for(int i=0; i<3; i++){
-            ProducerRecord<String, String> record =
-                    new ProducerRecord<>(TOPIC_NAME, "**** hello from idea "+i+" ****");
+            User user = new User();
+            user.setId(i);
+            user.setName("Tom "+i);
+            ProducerRecord<String, User> record =
+                    new ProducerRecord<>(TOPIC_NAME, user);
 
 //            producer.send(record, new Callback() {
 //                @Override
