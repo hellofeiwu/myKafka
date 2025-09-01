@@ -16,6 +16,7 @@ public class MyProducer {
         String sasl_password = "AVNS_qSH1VzUsyh5Ox5CqvDT";
         String jaasTemplate = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
         String jaasConfig = String.format(jaasTemplate, sasl_username, sasl_password);
+        System.out.println(jaasConfig);
 
         Properties properties = new Properties();
 
